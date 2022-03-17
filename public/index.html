@@ -17,17 +17,23 @@
           <form @submit.prevent="createUrl">
             <div>
               <input class="input" v-model="urlLong" name="url" type="url" />
-              <div class="error" v-if="errorUrl">{{ errorUrl }}</div>
             </div>
+            <div class="error" v-if="errorUrl">{{ errorUrl }}</div>
             <div>
               <input class="input" v-model="slug" name="slug" type="text" />
             </div>
+            <div class="error" v-if="errorSlug">{{ errorSlug }}</div>
             <button class="create" type="submit">Create URL</button>
           </form>
         </div>
-        <div class="result" v-if="isPosted">
-          <h3>your url:</h3>
-          <a :href="created">{{created}}</a>
+        <div class="resultO" v-if="isPosted">
+          <div class="result">
+            <h3>your url:</h3>
+            <a ref="urlLink" :href="created">{{created}}</a>
+          </div>
+
+          <button @click="copyText" class="createO">Copy url</button>
+          <div v-show="copied">url copied</div>
         </div>
       </div>
     </div>
@@ -44,9 +50,17 @@
             created: '',
             errorUrl: '',
             errorSlug: '',
+            copied: false,
           }
         },
         methods: {
+          copyText() {
+            navigator.clipboard.writeText(this.created)
+            this.copied = true
+            setTimeout(() => {
+              this.copied = false
+            }, 1000)
+          },
           async createUrl() {
             const dataFetch = { urlLong: this.urlLong, slug: this.slug }
             const fetchOptions = {
@@ -61,10 +75,17 @@
               const res = await fetch(this.url, fetchOptions)
               const data = await res.json()
               if (this.slug === '' || this.slug == null) this.slug = data.slug
-              console.log(data.slug)
+              console.log(data)
+              console.log(data.message)
 
               if (data.message) {
-                this.errorUrl = data.message
+                if (data.message.includes('slug')) {
+                  console.log('if e girdik')
+                  this.errorSlug = data.message
+                }
+                if (data.message.includes('url')) {
+                  this.errorUrl = data.message
+                }
                 return
               }
               this.created = `${this.url}/${this.slug}`

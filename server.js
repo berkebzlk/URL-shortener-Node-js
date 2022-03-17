@@ -62,15 +62,16 @@ app.post(
       if (!isValid) {
         throw new Error('Please enter valid url')
       }
-      const existUrl = await URL.findOne({ slug })
-      if (existUrl) {
-        throw new Error('Slug in use. Please try again with another slug')
-      }
       slug.toLowerCase()
       const newURL = {
         urlLong,
         slug,
       }
+      const existUrl = await URL.findOne({ slug })
+      if (existUrl) {
+        throw new Error('Slug in use. Please try again with another slug')
+      }
+
       const createdURL = await URL.create(newURL)
       res.setHeader('Access-Control-Allow-Origin', '*')
       res.json(createdURL)
