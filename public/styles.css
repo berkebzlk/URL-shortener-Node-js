@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  position: relative;
+  background-color: #262626;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#app {
+  width: 500px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: aquamarine;
+  position: relative;
+  border-radius: 8px;
+}
+#app::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 700px;
+  background-color: black;
+  z-index: -10;
+  border-radius: 50%;
+}
+
+h1 {
+  margin-bottom: 20px;
+  text-align: center;
+  font-family: 'Press Start 2P', cursive;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+h3 {
+  display: inline-block;
+  margin-right: 4px;
+}
+.result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input,
+.create {
+  margin: 1rem 0;
+  max-width: 100%;
+}
+
+.input {
+  font-family: inherit;
+  padding-bottom: 1rem;
+  background: none;
+  border: none;
+  color: #000;
+  border-bottom: 2px solid #ffffff;
+  text-align: center;
+  font-size: 1.25rem;
+  transition: border-bottom-color 0.3s ease-in-out;
+  caret-color: #56bc58;
+}
+
+.input:focus {
+  outline: none;
+  border-bottom-color: black;
+}
+
+.input::placeholder {
+  color: #ffffff;
+  opacity: 0.7;
+}
+
+.create {
+  cursor: pointer;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.15rem;
+  color: #262626;
+  border: none;
+  background-color: #ffffff;
+  padding: 0.75em 1.25rem;
+  box-shadow: 3px 3px 0 0 black;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.create:hover {
+  box-shadow: 0 0 0 0 #ffffff;
+}

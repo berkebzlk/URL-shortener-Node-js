@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>URL Shortener by berkebzlk</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <div class="container">
+      <div id="app">
+        <div v-if="!isPosted">
+          <h1>URL Shortener</h1>
+          <form @submit.prevent="createUrl">
+            <div>
+              <input class="input" v-model="urlLong" name="url" type="url" />
+            </div>
+            <div>
+              <input class="input" v-model="slug" name="slug" type="text" />
+            </div>
+            <button class="create" type="submit">Create URL</button>
+          </form>
+        </div>
+        <div class="result" v-if="isPosted">
+          <h3>your url:</h3>
+          <a :href="created">{{created}}</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            isPosted: false,
+            urlLong: '',
+            slug: '',
+            data: '',
+            url: 'https://url-shortener-berkebzlk.herokuapp.com/',
+            created: '',
+          }
+        },
+        methods: {
+          async createUrl() {
+            const data = { urlLong: this.urlLong, slug: this.slug }
+
+            const fetchOptions = {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(data),
+            }
+            try {
+              const res = await fetch(this.url, fetchOptions)
+              if (res.ok) {
+                this.data = await res.json()
+                this.created = `https://url-shortener-berkebzlk.herokuapp.com/${data.slug}`
+                this.isPosted = true
+              }
+            } catch (error) {
+              console.log(error + '💣💣💣')
+            }
+          },
+        },
+      }).mount('#app')
+    </script>
+  </body>
+</html>
