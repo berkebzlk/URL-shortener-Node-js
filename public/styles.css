@@ -7,29 +7,26 @@
 
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  position: relative;
-  overflow: hidden;
   background-color: #262626;
+  overflow: hidden;
 }
 
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #app {
-  width: 500px;
-  height: 500px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 465px;
+  height: 465px;
   background-color: aquamarine;
   position: relative;
   border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #app::before {
   content: '';
@@ -37,15 +34,21 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 700px;
-  height: 700px;
+  width: 650px;
+  height: 650px;
   background-color: black;
   z-index: -10;
   border-radius: 50%;
 }
 
+.page1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 h1 {
-  margin-bottom: 20px;
   text-align: center;
   font-family: 'Press Start 2P', cursive;
 }
@@ -56,18 +59,6 @@ form {
   justify-content: center;
   flex-direction: column;
   gap: 10px;
-}
-h3 {
-  display: inline-block;
-  margin-right: 4px;
-}
-.result {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
-  max-width: 500px;
-  word-wrap: break-word;
 }
 
 .input,
@@ -114,40 +105,58 @@ h3 {
   box-shadow: 0 0 0 0 #ffffff;
 }
 
-.error {
-  color: red;
+/* PAGE 2 */
+.page2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
-.createO {
+.page2 h3 {
+  font-family: 'Press Start 2P', cursive;
+  border-bottom: 3px solid black;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 5px;
+}
+
+.page2 a {
+  width: 400px;
+  display: block;
+  word-wrap: break-word;
+  margin-bottom: 10px;
+}
+
+.isim {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.copy {
   cursor: pointer;
   font-family: 'Press Start 2P', cursive;
   font-size: 1rem;
   color: #262626;
   border: none;
   background-color: #ffffff;
+  padding: 0.75em 1.25rem;
   box-shadow: 3px 3px 0 0 black;
   transition: box-shadow 0.2s ease-in-out;
-  padding: 10px 20px;
+  margin-bottom: 10px;
 }
 
-a {
-  display: inline-block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.createO:hover {
+.copy:hover {
   box-shadow: 0 0 0 0 #ffffff;
 }
 
-@media (max-width: 450px) {
-  #app {
-    width: 355px;
-    height: 355px;
-  }
-  #app:before {
-    width: 500px;
-    height: 500px;
-  }
+.copied {
+  text-align: center;
+  position: absolute;
+  bottom: -110%;
+  font-family: 'Courier New', Courier, monospace;
 }
