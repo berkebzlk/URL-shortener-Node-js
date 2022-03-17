@@ -7,7 +7,6 @@ const helmet = require('helmet')
 const yup = require('yup')
 const rateLimit = require('express-rate-limit')
 const slowDown = require('express-slow-down')
-const cors = require('cors')
 require('dotenv').config()
 
 const app = express()
@@ -20,7 +19,6 @@ mongoose
   .then(() => console.log('DB connected'))
   .catch((err) => console.log(err))
 
-app.use(cors())
 app.use(express.static('./public'))
 app.use(express.json())
 app.use(helmet())
@@ -47,16 +45,22 @@ app.post(
   // }),
   async (req, res, next) => {
     let { urlLong, slug } = req.body
+    console.log(urlLong)
+
     try {
-      await schema.validate({
-        slug,
-        urlLong,
-      })
       if (urlLong.includes('heroku')) {
         throw new Error('You cant shorten my url!')
       }
       if (!slug) {
         slug = nanoid(5)
+      }
+      const isValid = await schema.isValid({
+        slug,
+        urlLong,
+      })
+      console.log(isValid)
+      if (!isValid) {
+        throw new Error('Please enter valid url')
       }
       const existUrl = await URL.findOne({ slug })
       if (existUrl) {
@@ -68,8 +72,10 @@ app.post(
         slug,
       }
       const createdURL = await URL.create(newURL)
-      res.json({ createdURL })
+      res.setHeader('Access-Control-Allow-Origin', '*')
+      res.json(createdURL)
     } catch (error) {
+      console.log(error.message)
       next(error)
     }
   }
@@ -93,16 +99,12 @@ app.use((req, res, next) => {
 })
 
 app.use((error, req, res, next) => {
-  if (error.status) {
-    res.status(error.status)
-  } else {
-    res.status(500)
-  }
   res.json({
     message: error.message,
     stack: process.env.NODE_ENV === 'production' ? '🤡' : error.stack,
   })
 })
+
 const port = process.env.PORT || 3000
 app.listen(port, () => {
   console.log(`app is listening on ${port}`)

@@ -17,6 +17,7 @@
           <form @submit.prevent="createUrl">
             <div>
               <input class="input" v-model="urlLong" name="url" type="url" />
+              <div class="error" v-if="errorUrl">{{ errorUrl }}</div>
             </div>
             <div>
               <input class="input" v-model="slug" name="slug" type="text" />
@@ -39,28 +40,38 @@
             urlLong: '',
             slug: '',
             data: '',
-            url: 'https://url-shortener-berkebzlk.herokuapp.com/',
+            url: 'http://localhost:3000',
             created: '',
+            errorUrl: '',
+            errorSlug: '',
           }
         },
         methods: {
           async createUrl() {
-            const data = { urlLong: this.urlLong, slug: this.slug }
-
+            const dataFetch = { urlLong: this.urlLong, slug: this.slug }
             const fetchOptions = {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(data),
+              headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+              },
+              body: JSON.stringify(dataFetch),
             }
             try {
               const res = await fetch(this.url, fetchOptions)
-              if (res.ok) {
-                this.data = await res.json()
-                this.created = `https://url-shortener-berkebzlk.herokuapp.com/${data.slug}`
-                this.isPosted = true
+              const data = await res.json()
+              if (this.slug === '' || this.slug == null) this.slug = data.slug
+              console.log(data.slug)
+
+              if (data.message) {
+                this.errorUrl = data.message
+                return
               }
+              this.created = `${this.url}/${this.slug}`
+              this.isPosted = true
             } catch (error) {
-              console.log(error + '💣💣💣')
+              console.log(error.message + '💣💣💣')
+              console.log('hata hata hata')
             }
           },
         },

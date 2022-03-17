@@ -109,3 +109,7 @@ h3 {
 .create:hover {
   box-shadow: 0 0 0 0 #ffffff;
 }
+
+.error {
+  color: red;
+}
