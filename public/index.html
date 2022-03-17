@@ -28,9 +28,7 @@
         </div>
         <div class="page2" v-if="isPosted">
           <h3>Your Shortened URL</h3>
-          <a ref="urlLink" :href="created"
-            >http://127.0.0.1:5500/index.htmlhttp://127.0.0.1:5500/index.htmlhttp://127.0.0.1:5500/index.htmlhttp://127.0.0.1:5500/index.htmlhttp://127.0.0.1:5500/index.htmlhttp://127.0.0.1:5500/index.html{{created}}</a
-          >
+          <a ref="urlLink" :href="created">{{created}}</a>
 
           <div class="isim">
             <button @click="copyText" class="copy">Copy url</button>
