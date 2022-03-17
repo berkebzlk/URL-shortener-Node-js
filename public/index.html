@@ -46,7 +46,7 @@
             urlLong: '',
             slug: '',
             data: '',
-            url: 'http://localhost:3000',
+            url: 'https://url-shortener-berkebzlk.herokuapp.com',
             created: '',
             errorUrl: '',
             errorSlug: '',
@@ -75,12 +75,9 @@
               const res = await fetch(this.url, fetchOptions)
               const data = await res.json()
               if (this.slug === '' || this.slug == null) this.slug = data.slug
-              console.log(data)
-              console.log(data.message)
 
               if (data.message) {
                 if (data.message.includes('slug')) {
-                  console.log('if e girdik')
                   this.errorSlug = data.message
                 }
                 if (data.message.includes('url')) {
@@ -92,7 +89,6 @@
               this.isPosted = true
             } catch (error) {
               console.log(error.message + '💣💣💣')
-              console.log('hata hata hata')
             }
           },
         },

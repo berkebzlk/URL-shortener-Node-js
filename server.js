@@ -45,10 +45,9 @@ app.post(
   // }),
   async (req, res, next) => {
     let { urlLong, slug } = req.body
-    console.log(urlLong)
 
     try {
-      if (urlLong.includes('heroku')) {
+      if (urlLong.includes('url-shortener-berkebzlk')) {
         throw new Error('You cant shorten my url!')
       }
       if (!slug) {
@@ -58,7 +57,6 @@ app.post(
         slug,
         urlLong,
       })
-      console.log(isValid)
       if (!isValid) {
         throw new Error('Please enter valid url')
       }
@@ -76,7 +74,6 @@ app.post(
       res.setHeader('Access-Control-Allow-Origin', '*')
       res.json(createdURL)
     } catch (error) {
-      console.log(error.message)
       next(error)
     }
   }
