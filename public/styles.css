@@ -18,6 +18,20 @@ body {
   transform: translate(-50%, -50%);
 }
 
+.goHome {
+  position: absolute;
+  top: 90%;
+  left: 10%;
+  cursor: pointer;
+  /* transform: translateY(-100%); */
+}
+.goHome i {
+  transition: 0.5s transform ease;
+}
+.goHome:hover i {
+  transform: translateX(-5px);
+}
+
 #app {
   width: 465px;
   height: 465px;
@@ -180,6 +194,10 @@ form {
     font-size: 0.7rem;
   }
 
+  .goHome {
+    font-size: 14px;
+  }
+
   /* page 2 */
   .page2 h3 {
     font-size: 16px;
@@ -208,6 +226,10 @@ form {
 
   .create {
     font-size: 0.7rem;
+  }
+
+  .goHome {
+    font-size: 12px;
   }
 }
 
@@ -302,7 +324,12 @@ form {
   }
 
   .copied {
-    font-size: 10px;
-    bottom: -50%;
+    font-size: 8px;
+    bottom: -100%;
+  }
+
+  .goHome {
+    top: 85%;
+    font-size: 8px;
   }
 }
