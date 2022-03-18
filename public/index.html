@@ -26,11 +26,11 @@
         <div class="page1" v-if="!isPosted">
           <h1>URL Shortener</h1>
           <form @submit.prevent="createUrl">
-            <div>
+            <div class="inputDiv">
               <input class="input" v-model="urlLong" name="url" type="url" />
               <div class="error" v-if="errorUrl">{{ errorUrl }}</div>
             </div>
-            <div>
+            <div class="inputDiv">
               <input class="input" v-model="slug" name="slug" type="text" />
               <div class="error" v-if="errorSlug">{{ errorSlug }}</div>
             </div>
@@ -60,7 +60,8 @@
             urlLong: '',
             slug: '',
             data: '',
-            url: 'https://url-shortener-berkebzlk.herokuapp.com',
+            urlLocal: 'http://localhost:3000',
+            urlDeploy: 'https://url-shortener-berkebzlk.herokuapp.com',
             created: '',
             errorUrl: '',
             errorSlug: '',
@@ -69,8 +70,12 @@
         },
         methods: {
           goHome() {
-            this.created = ''
             this.isPosted = false
+            this.created = ''
+            this.urlLong = ''
+            this.slug = ''
+            this.errorUrl = ''
+            this.errorSlug = ''
           },
           copyText() {
             navigator.clipboard.writeText(this.created)
@@ -90,7 +95,7 @@
               body: JSON.stringify(dataFetch),
             }
             try {
-              const res = await fetch(this.url, fetchOptions)
+              const res = await fetch(this.urlDeploy, fetchOptions)
               const data = await res.json()
               if (this.slug === '' || this.slug == null) this.slug = data.slug
 
@@ -103,7 +108,7 @@
                 }
                 return
               }
-              this.created = `${this.url}/${this.slug}`
+              this.created = `${this.urlDeploy}/${this.slug}`
               this.isPosted = true
             } catch (error) {
               console.log(error.message + '💣💣💣')

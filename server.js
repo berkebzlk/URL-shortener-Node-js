@@ -67,7 +67,9 @@ app.post(
       }
       const existUrl = await URL.findOne({ slug })
       if (existUrl) {
-        throw new Error('Slug in use. Please try again with another slug')
+        throw new Error(
+          `${existUrl.slug} in use. Please try again with another slug`
+        )
       }
 
       const createdURL = await URL.create(newURL)

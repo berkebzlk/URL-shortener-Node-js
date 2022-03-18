@@ -23,7 +23,6 @@ body {
   top: 90%;
   left: 10%;
   cursor: pointer;
-  /* transform: translateY(-100%); */
 }
 .goHome i {
   transition: 0.5s transform ease;
@@ -75,6 +74,13 @@ form {
   gap: 10px;
 }
 
+.inputDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .input,
 .create {
   margin: 1rem 0;
@@ -101,6 +107,11 @@ form {
 .input::placeholder {
   color: #ffffff;
   opacity: 0.7;
+}
+
+.error {
+  color: red;
+  text-align: center;
 }
 
 .create {
